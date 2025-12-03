@@ -1,0 +1,35 @@
+name: CI (Formato y Pruebas)
+
+on:
+  push:
+    branches:
+      - main
+      - 'feat/**' # Se ejecuta al hacer push en tu rama
+  pull_request:
+    branches:
+      - main # Se ejecuta al abrir o actualizar el PR
+
+jobs:
+  code-quality:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⬇️ Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: 📦 Instalar dependencias para CI (Prettier)
+        # Necesitamos Prettier para el chequeo
+        run: npm install prettier --global
+
+      - name: ✨ Ejecutar Prettier check
+        # Verifica que el formato sea correcto. Si el código no está formateado, FALLA.
+        run: prettier --check .
+
+      - name: 🧪 Ejecutar Pruebas Mínimas
+        # Ejecuta el test que hiciste en tests/suma.test.js
+        run: node --test tests/suma.test.js
