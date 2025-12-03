@@ -14,7 +14,7 @@ function agregarItem(texto) {
 // Para que el test de la suma funcione en Node.js, debes exportar la función.
 module.exports = {
   suma,
-  agregarItem 
+  agregarItem,
 };
 
-console.log("App lista");
+console.log('App lista');
